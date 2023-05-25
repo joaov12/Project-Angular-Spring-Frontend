@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http"
+import { HttpClient } from "@angular/common/http"
 import { Observable } from 'rxjs';
 import { Cliente } from '../modelo/Cliente';
 
@@ -9,18 +9,28 @@ import { Cliente } from '../modelo/Cliente';
 export class ClientecService {
 
   // Url da API
-  private url:string = 'http://localhost:8080';
+  private url: string = 'http://localhost:8080';
 
   //construtor
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   //Método para selecionar todos os clientes
-  selecionar():Observable<Cliente[]>{
+  selecionar(): Observable<Cliente[]> {
     return this.http.get<Cliente[]>(this.url);
   }
 
   //Método para cadastrar clientes
-  cadastrar(obj:Cliente):Observable<Cliente>{
+  cadastrar(obj: Cliente): Observable<Cliente> {
     return this.http.post<Cliente>(this.url, obj);
   }
+
+  // Método para editar clientes
+  editar(obj: Cliente): Observable<Cliente> {
+    return this.http.put<Cliente>(this.url, obj);
+  }
+
+  
+
 }
+
+
