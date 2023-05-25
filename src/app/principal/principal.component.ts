@@ -8,25 +8,48 @@ import { ClientecService } from '../servico/clientec.service';
   styleUrls: ['./principal.component.css']
 })
 export class PrincipalComponent {
-   // Variável para visibilidade dos botões
-   btnCadastro:boolean = true;
 
-   //JSON de clientes
-   clientes:Cliente[] = [];
+  //Objeto do tipo Cliente
+  cliente = new Cliente();
 
-   // Construtor
-   constructor(private servico:ClientecService){
 
-   }
+  // Variável para visibilidade dos botões
+  btnCadastro: boolean = true;
 
-   // Método de selção
-   selecionar():void{
+  //JSON de clientes
+  clientes: Cliente[] = [];
+
+  // Construtor
+  constructor(private servico: ClientecService) {
+
+  }
+
+  // Método de seleção
+  selecionar(): void {
     this.servico.selecionar().subscribe(retorno => this.clientes = retorno);
-   }
+  }
 
-   // Método de inicialização
-   ngOnInit(){
+
+  // Método de cadastro
+  cadastrar(): void {
+    this.servico.cadastrar(this.cliente)
+      .subscribe(retorno => {
+
+        // Cadastrar o cliente no vetor
+        this.clientes.push(retorno);
+
+        // Limpar formulário
+        this.cliente = new Cliente();
+
+        // Mensagem
+        alert('Cliente cadastrado com sucesso!');
+      });
+  }
+
+
+  // Método de inicialização
+  ngOnInit() {
     this.selecionar();
-   }
+  }
 
 }
